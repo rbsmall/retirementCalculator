@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<runner:RunnerConfiguration xmlns:runner="http://www.ibm.com/zUnit/4.0.0.0/TestRunner" id="292ae98e-c587-4fd6-b935-3b460f80cd0e">
+  <runner:options contOnTestCaseError="false" contOnTestCaseFail="true" contOnTestError="false" contOnTestFail="true" fileIOCapture="compat"/>
+  <runner:testCase moduleName="TEBUD01">
+    <test name="TEST1" entry="TEST_TEST1" type="BTCH" init="BZU_INIT" term="BZU_TERM" program="EBUD01" commarea="0" skipTest="false" resetFile="true" stubCall="true" dummy="false" noPlaybackData="false"/>
+  </runner:testCase>
+  <runner:intercept module="EBUD01" stub="false" lengths="" retcode="true" exist="false"/>
+  <runner:intercept module="EBUD02" stub="true" lengths="21" parmtype="I" retcode="false" exist="false"/>
+  <runner:intercept module="EBUD03" stub="true" lengths="93" parmtype="I" retcode="false" exist="false"/>
+  <runner:playback moduleName="EBUD01">
+    <playbackFile name="&lt;HLQ>.ZTEST.REC.EBUD01" localName="EBUD01.rec"/>
+  </runner:playback>
+  <runner:fileAttributes hlqDdName="AZUHLQ"/>
+</runner:RunnerConfiguration>

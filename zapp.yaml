@@ -1,0 +1,46 @@
+
+################################################################
+# LICENSED MATERIALS - PROPERTY OF IBM
+# "RESTRICTED MATERIALS OF IBM"
+# (C) COPYRIGHT IBM CORPORATION 2020, 2022. ALL RIGHTS RESERVED
+# US GOVERNMENT USERS RESTRICTED RIGHTS - USE, DUPLICATION,
+# OR DISCLOSURE RESTRICTED BY GSA ADP SCHEDULE
+# CONTRACT WITH IBM CORPORATION
+################################################################
+
+name: retirementCalculator
+description: For IBM Z Open Editor 3.0.0 or newer. For DAT's retirementCalculator application.
+version: 3.0.0
+author:
+  name: IBM CORPORATION
+
+propertyGroups:
+  - name: cobol-copybooks
+    language: cobol
+    libraries:
+      - name: syslib
+        type: local
+        locations:
+          - "**/copy"
+
+# Mappings example using US defaults. Adjust to your code pages.
+profiles:
+  - name: dbb-build
+    type: dbb
+    settings:
+      application: retirementCalculator
+      command: $DBB_HOME/bin/groovyz
+      buildScriptPath: /u/gitlab/gitlab-runner/zos/builds/dbb-zappbuild/3.0.1/build.groovy
+      buildScriptArgs:
+        - --userBuild
+        - --workspace ${zopeneditor.userbuild.userSettings.dbbWorkspace}
+        - --application ${application}
+        - --hlq ${zopeneditor.userbuild.userSettings.dbbHlq}
+        - --outDir ${zopeneditor.userbuild.userSettings.dbbLogDir}
+        - --verbose
+        - --propFiles /var/dbb/dbb-zappbuild-config/build.properties,/var/dbb/dbb-zappbuild-config/datasets.properties
+      additionalDependencies:
+        - application-conf
+      logFilePatterns:
+        - ${buildFile.basename}.log
+        - BuildReport.*  
