@@ -25,7 +25,7 @@ propertyGroups:
 
 # Mappings example using US defaults. Adjust to your code pages.
 profiles:
-  - name: dbb-build
+  - name: dbb-zappbuild
     type: dbb
     settings:
       application: retirementCalculator
@@ -44,3 +44,29 @@ profiles:
       logFilePatterns:
         - ${buildFile.basename}.log
         - BuildReport.*  
+
+  - name: zBuilder-VSCode
+    type: dbb
+    settings:
+      command: "$DBB_HOME/bin/dbb build"
+      lifecycle: user
+      lifecycleArgs:
+        - "--hlq ${zopeneditor.userbuild.userSettings.dbbHlq}"
+      additionalDependencies:
+        - "dbb-app.yaml"
+      logFilePatterns:
+        - "*${buildFile.basename}*"
+        - "BuildReport.*"
+        
+  - name: zBuilder-IDz
+    type: dbb
+    settings:
+      command: "$DBB_HOME/bin/dbb build"
+      lifecycle: user
+      lifecycleArgs:
+        - "--hlq ${dbbHlq}"
+      additionalDependencies:
+        - "dbb-app.yaml"
+      logFilePatterns:
+        - "*.log"
+        - "BuildReport.*"   
