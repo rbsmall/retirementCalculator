@@ -1,0 +1,88 @@
+---
+#
+# Licensed materials - Property of IBM
+# 5655-AC5 Copyright IBM Corp. 2024
+# All rights reserved
+# US Government users restricted rights  -  Use, duplication or
+# disclosure restricted by GSA ADP schedule contract with IBM Corp.
+#
+version: 1.0.0
+application:
+  name: retirementCalculator
+  tasks:
+
+    # Variable overrides for the ImpactAnalysis task
+    - task: ImpactAnalysis
+      variables:
+        # Associate dependency files to program types. For more information see 
+        # https://www.ibm.com/docs/en/dbb/3.0?topic=index-task-impactanalysis#defining-impact-query-patterns
+        - name: impactQueryPatterns
+          value:
+            # Cobol program dependency patterns
+            - languageExt: cbl      
+              dependencyPatterns: 
+                - ${APP_DIR_NAME}/copy/*.cpy       # Copybook source dependency
+                - ${APP_DIR_NAME}/bms/*.bms        # BMS Map source dependency
+                - ${APP_DIR_NAME}/cobol/*.cbl      # Static link dependency  
+            # Link card dependency patterns
+            - languageExt: lnk                    
+              dependencyPatterns: 
+                - ${APP_DIR_NAME}/cobol/*.cbl      # Static link dependency 
+
+    # Variable overrides for the Cobol language task
+    - task: Cobol
+      variables:  
+        #When enabled, this variable passes the 'test' compiler option for debug
+        - name: debug
+          value: true
+
+    # Variable overrides for the LinkEdit language task
+    - task: Db2Binds
+      variables:
+        # Flag indicating to run DB2 BIND PACKAGE.  Set to 'true' to bind SQL programs
+        # can be overridden by file variables
+        - name: performBindPackage
+          value: false
+
+        # Flag indicating to run DB2 BIND PLAN.  Set to 'true' to bind SQL programs
+        # can be overridden by file variables
+        - name: performBindPlan
+          value: false
+
+        # Bind jobcard for the JCL that is generated
+        # can be overridden by file variables
+        - name: jobCard
+          value: |
+            //DB2BIND JOB 'DB2BIND',  
+            // MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID
+
+        # Specify the name of the DB2 subsystem
+        # can be overridden by file variables
+        - name: db2Location
+          value: DBC1
+
+        # Specify the DB2 collection (Package)
+        # can be overridden by file variables
+        - name: collectionID
+          value: SAMP
+
+        # Specify the DB2 Plan name
+        # can be overridden by file variables
+        - name: plan
+          value: MYPLAN
+
+        # Specify the DB2 Plan pklist
+        # can be overridden by file variables
+        # example: *.MORTAGE.*
+        - name: plan_pklist
+          value: "*.SAMP.*"
+
+        # Specify the owner of the package
+        # can be overridden by file variables
+        - name: packageOwner
+          value: DBEHM
+
+        # Specify the value of the implicit qualifier.
+        # can be overridden by file variables
+        - name: qualifier
+          value: MORT            
