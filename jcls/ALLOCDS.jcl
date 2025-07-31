@@ -8,7 +8,7 @@
 //* *************************************************************
 //* STEP: ALLOC
 //*
-//*  ALLOCATE DATASETS NEEDED FOR TAZ AND RETIREMENT CALCULATOR
+//*  ALLOCATE DATASETS NEEDED FOR TAZ
 //*
 //* *************************************************************
 //*
@@ -20,7 +20,12 @@
 //      RECFM=VBA,LRECL=16383,BLKSIZE=32760,SPACE=(CYL,(2,1,20)),
 //      DISP=(NEW,CATLG,DELETE)
 //*
-//*  Create and load the RETCALC sequential file
+//* *************************************************************
+//* STEP: LOAD
+//*
+//*  ALLOCATE AND LOAD DATASET NEEDED BY RETIREMENT CALCULATOR
+//*
+//* *************************************************************
 //LOAD    EXEC PGM=IEBGENER
 //SYSIN    DD DUMMY
 //SYSPRINT DD SYSOUT=*
