@@ -25,9 +25,7 @@
 //*
 //*  Load the RETCALC sequential file
 //STEP1    EXEC PGM=IEBGENER
-//SYSUT1   DD DSN=your.sequential.file.name,DISP=SHR
-//SYSUT2   DD DSN=new.sequential.file.name,DISP=(NEW,CATLG),
-//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0)
+//SYSUT1   DD DSN=IBMUSER.RETCALC.INPUT,DISP=SHR
 //SYSPRINT DD SYSOUT=*
 //SYSIN    DD *
 19840121
